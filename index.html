@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Picture Gallery</title>
+<link href="gallery.css" rel="stylesheet">
+<link href="gallery2.css" rel="stylesheet">
+<style>
+
+
+#gallery {
+	
+	border-right: white 1px dotted;	
+}
+#gallery img {
+	display: inline-block;
+	margin: 0 0 10px 0;
+	border: 1px solid rgb(0,0,0);
+}
+#photo {
+	margin-left: 150px;	
+	position: relative;
+}
+#photo img {
+	position: absolute;	
+}
+
+</style>
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+$(document).ready(function() {
+		
+$('#gallery img').each(function(i) {
+	var imgFile = $(this).attr('src');
+	var preloadImage = new Image();
+  var imgExt = /(\.\w{3,4}$)/;
+  preloadImage.src = imgFile.replace(imgExt,'_h$1');
+		
+	$(this).hover(
+		function() {
+			$(this).attr('src', preloadImage.src);
+			
+		},
+		function () {
+		var currentSource=$(this).attr('src');
+			$(this).attr('src', imgFile);
+			
+	}); // end hover
+}); // end each
+	
+	$('#gallery a').click(function(evt) {
+		//don't follow link
+		 evt.preventDefault();
+		 //get path to new image
+	   var imgPath = $(this).attr('href');
+		 //get reference to old image
+		 var oldImage = $('#photo img');
+		 			
+			 //create HTML for new image
+			 var newImage = $('<img src="' + imgPath +'">');
+			 //make new image invisible
+			 newImage.hide();
+			 //add to the #photo div
+			 $('#photo').prepend(newImage);
+			 //fade in new image
+			 newImage.fadeIn(1000);
+			 
+			 //fade out old image and remove from DOM
+			 oldImage.fadeOut(1000,function(){
+		     $(this).remove();
+		    
+				});
+			 
+		 
+	}); // end click
+		
+		$('#gallery a:first').click();
+}); // end ready
+</script>
+
+</head>
+<body>
+
+
+
+<div class="content">
+	<div class="main">
+		<h1>Picture Gallery</h1>
+		<div id="gallery"> 
+		<a href="large/bridge.jpg"><img src="small/bridge.jpg" width="70" height="70" alt="bridge" class="imgOpa"></a> 
+		<a href="large/frenchtoast.jpg"><img src="small/frenchtoast.jpg" width="70" height="70" alt="french toast" class="imgOpa"></a> 
+		<a href="large/gate.jpg"><img src="small/gate.jpg" width="70" height="70" alt="gate" class="imgOpa"></a> 
+		<a href="large/music.jpg"><img src="small/music.jpg" width="70" height="70" alt="music" class="imgOpa"></a> 
+		</div>
+		<div id="photo"></div>
+	</div>
+</div>
+
+</body>
+</html>

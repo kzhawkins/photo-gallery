@@ -1,0 +1,35 @@
+
+
+body {
+	background-color: gray;
+	background-image: url(furley_bg.png);
+	)
+}
+
+h1 {
+	font-style: italic;
+	color: rgba(151,25,23,0.9);
+}
+
+#gallery {
+	
+	border-right: white 1px dotted;	
+}
+
+#gallery img {
+	display: inline-block;
+	margin: 0 0 10px 0;
+	border: 3px solid rgba(0,0,0);
+	border-color: #c61414
+}
+
+#photo {
+	margin-left: 150px;	
+	position: relative;
+	border-color: #c61414
+}
+
+#photo img {
+	position: absolute;	
+	border-color: #c61414
+}
